@@ -6,7 +6,7 @@ def linear_kernel(x, y):
 
 
 def polynomial_kernel(x, y, d=5):
-    return (np.dot(x, y)) ** d
+    return (np.dot(x, y) + 1) ** d
 
 
 def RBF_kernel(x, y, sigma=1.0):

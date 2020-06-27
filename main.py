@@ -1,71 +1,80 @@
-import datasets as dt
-import evaluate_accuracy as ea
+import datasets
+import performances
 import KernelizedDualPerceptron
+
 from termcolor import colored
 
-X_train, X_test, y_train, y_test = dt.load_single_dataset("banknote.csv", ',')
+MAX_ITERATION = 15
+
+X_train, X_validation, X_test, y_train, y_validation, y_test = datasets.load_single_dataset("banknote.csv", ',')
 print(colored("--BANKNOTE DATASET--", "red"))
-max_iteration = 15
+print(
+    "X_train shape: " + str(X_train.shape) + " X_validation shape: " + str(
+        X_validation.shape) + " X_test shape: " + str(
+        X_test.shape))
 
-lin_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("linear", max_iteration)
-lin_classifier.train(X_train, y_train)
+lin_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("linear", MAX_ITERATION)
+lin_classifier.train(X_train, X_validation, y_train, y_validation)
 lin_prediction = lin_classifier.test(X_test)
-# print(y_test)
-print(lin_prediction)
-print(colored(str(ea.accuracy(y_test, lin_prediction)), "blue"))
+bank_lin_accuracy = f"{performances.accuracy_rate(y_test, lin_prediction):.2f}"
+print(colored("Accuracy: " + str(bank_lin_accuracy), "blue"))
 
-pol_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("polynomial", max_iteration)
-pol_classifier.train(X_train, y_train)
+pol_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("polynomial", MAX_ITERATION)
+pol_classifier.train(X_train, X_validation, y_train, y_validation)
 pol_prediction = pol_classifier.test(X_test)
-print(pol_prediction)
-print(colored(str(ea.accuracy(y_test, pol_prediction)), "yellow"))
+bank_pol_accuracy = f"{performances.accuracy_rate(y_test, pol_prediction):.2f}"
+print(colored("Accuracy: " + str(bank_pol_accuracy), "yellow"))
 
-RBF_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("RBF", max_iteration)
-RBF_classifier.train(X_train, y_train)
+RBF_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("RBF", MAX_ITERATION)
+RBF_classifier.train(X_train, X_validation, y_train, y_validation)
 RBF_prediction = RBF_classifier.test(X_test)
-print(RBF_prediction)
-print(colored(str(ea.accuracy(y_test, RBF_prediction)), "green"))
+bank_RBF_accuracy = f"{performances.accuracy_rate(y_test, RBF_prediction):.2f}"
+print(colored("Accuracy: " + str(bank_RBF_accuracy), "green"))
 
-X_train, X_test, y_train, y_test = dt.load_single_dataset("biodeg.csv", ';')
-print("\n\n" + colored("--BIODEG DATASET--", "red"))
+X_train, X_validation, X_test, y_train, y_validation, y_test = datasets.load_single_dataset("biodeg.csv", ';')
+print("\n\n" + colored("--BIODEGRADATION DATASET--", "red"))
+print(
+    "X_train shape: " + str(X_train.shape) + "X_validation shape: " + str(X_validation.shape) + "X_test shape: " + str(
+        X_test.shape))
 
-lin_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("linear", max_iteration)
-lin_classifier.train(X_train, y_train)
+lin_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("linear", MAX_ITERATION)
+lin_classifier.train(X_train, X_validation, y_train, y_validation)
 lin_prediction = lin_classifier.test(X_test)
-# print(y_test)
-print(lin_prediction)
-print(colored(str(ea.accuracy(y_test, lin_prediction)), "blue"))
+biodeg_lin_accuracy = f"{performances.accuracy_rate(y_test, lin_prediction):.2f}"
+print(colored("Accuracy: " + str(biodeg_lin_accuracy), "blue"))
 
-pol_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("polynomial", max_iteration)
-pol_classifier.train(X_train, y_train)
+pol_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("polynomial", MAX_ITERATION)
+pol_classifier.train(X_train, X_validation, y_train, y_validation)
 pol_prediction = pol_classifier.test(X_test)
-print(pol_prediction)
-print(colored(str(ea.accuracy(y_test, pol_prediction)), "yellow"))
+biodeg_pol_accuracy = f"{performances.accuracy_rate(y_test, pol_prediction):.2f}"
+print(colored("Accuracy: " + str(biodeg_pol_accuracy), "yellow"))
 
-RBF_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("RBF", max_iteration)
-RBF_classifier.train(X_train, y_train)
+RBF_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("RBF", MAX_ITERATION)
+RBF_classifier.train(X_train, X_validation, y_train, y_validation)
 RBF_prediction = RBF_classifier.test(X_test)
-print(RBF_prediction)
-print(colored(str(ea.accuracy(y_test, RBF_prediction)), "green"))
+biodeg_RBF_accuracy = f"{performances.accuracy_rate(y_test, RBF_prediction):.2f}"
+print(colored("Accuracy: " + str(biodeg_RBF_accuracy), "green"))
 
-X_train, X_test, y_train, y_test = dt.load_single_dataset("androgen.csv", ';')
+X_train, X_validation, X_test, y_train, y_validation, y_test = datasets.load_single_dataset("androgen.csv", ';')
 print("\n\n" + colored("--ANDROGEN DATASET--", "red"))
+print(
+    "X_train shape: " + str(X_train.shape) + "X_validation shape: " + str(X_validation.shape) + "X_test shape: " + str(
+        X_test.shape))
 
-lin_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("linear", max_iteration)
-lin_classifier.train(X_train, y_train)
+lin_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("linear", MAX_ITERATION)
+lin_classifier.train(X_train, X_validation, y_train, y_validation)
 lin_prediction = lin_classifier.test(X_test)
-# print(y_test)
-print(lin_prediction)
-print(colored(str(ea.accuracy(y_test, lin_prediction)), "blue"))
+androgen_lin_accuracy = f"{performances.accuracy_rate(y_test, lin_prediction):.2f}"
+print(colored("Accuracy: " + str(androgen_lin_accuracy), "blue"))
 
-pol_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("polynomial", max_iteration)
-pol_classifier.train(X_train, y_train)
+pol_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("polynomial", MAX_ITERATION)
+pol_classifier.train(X_train, X_validation, y_train, y_validation)
 pol_prediction = pol_classifier.test(X_test)
-print(pol_prediction)
-print(colored(str(ea.accuracy(y_test, pol_prediction)), "yellow"))
+androgen_pol_accuracy = f"{performances.accuracy_rate(y_test, pol_prediction):.2f}"
+print(colored("Accuracy: " + str(androgen_pol_accuracy), "yellow"))
 
-RBF_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("RBF", max_iteration)
-RBF_classifier.train(X_train, y_train)
+RBF_classifier = KernelizedDualPerceptron.KernelizedDualPerceptron("RBF", MAX_ITERATION)
+RBF_classifier.train(X_train, X_validation, y_train, y_validation)
 RBF_prediction = RBF_classifier.test(X_test)
-print(RBF_prediction)
-print(colored(str(ea.accuracy(y_test, RBF_prediction)), "green"))
+androgen_RBF_accuracy = f"{performances.accuracy_rate(y_test, RBF_prediction):.2f}"
+print(colored("Accuracy: " + str(androgen_RBF_accuracy), "green"))
