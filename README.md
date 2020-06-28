@@ -16,7 +16,7 @@ Qui di seguito una breve descrizione di ogni file del progetto:
 al posto del prodotto scalare.    
 * **kernels.py**: contiene i metodi per il calcolo delle 3 funzioni kernel (*lineare*, *polinomiale*, *RBF*).   
 * **performances.py**: contiene i metodi per il calcolo dell'accuratezza ed il rate d'errore.
-* **plots.py**: contiene i metodi che generano grafici per confrontare l'accuratezza al variare del datasets e del kernels.
+* **plots.py**: contiene i metodi che generano grafici per confrontare l'accuratezza al variare del dataset e del kernel.
 * **main.py**: ha il compito di eseguire l'intero codice.
 
 
