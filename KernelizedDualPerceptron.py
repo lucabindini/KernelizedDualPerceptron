@@ -74,7 +74,7 @@ class KernelizedDualPerceptron:
                                                                                  self.X_test[i]))
                 else:
                     print("Invalid kernel")
-            if (sum + self.b) > 0:
+            if (sum + self.b) >= 0:
                 y_predict[i] = 1
             else:
                 y_predict[i] = -1
