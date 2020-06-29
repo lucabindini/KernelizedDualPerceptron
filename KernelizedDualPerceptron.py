@@ -1,5 +1,6 @@
 import kernels
 import performances
+import plots
 
 import numpy as np
 
@@ -32,7 +33,7 @@ class KernelizedDualPerceptron:
         validation_error_rate = 1
         validation_errors = []
 
-        print("Starting to learn from samples...")
+        print("\nStarting to learn from samples with " + self.kernel + " kernel...")
         for i in range(self.MAX_ITERATION):
             previous_validation_error_rate = validation_error_rate
             old_alpha = self.alpha
@@ -48,11 +49,11 @@ class KernelizedDualPerceptron:
             if validation_error_rate > previous_validation_error_rate:
                 self.alpha = old_alpha
                 self.b = old_b
-                print(validation_error_rate)
                 validation_errors.append(validation_error_rate)
                 break
-            print(validation_error_rate)
             validation_errors.append(validation_error_rate)
+        # Uncomment below if you want to plot validation error function (plots are saved into /img folder)
+        # plots.validation_error_rate_plot(validation_errors)
         print("End learning")
 
     def test(self, X_test):
@@ -81,15 +82,14 @@ class KernelizedDualPerceptron:
 
     def compute_R(self):
         max_norm = 0
-        for i in range(0, self.num_train_samples):
+        for i in range(self.num_train_samples):
             if np.linalg.norm(self.X_train[i]) > max_norm:
                 max_norm = np.linalg.norm(self.X_train[i], 1)
         return max_norm
 
     def create_gram_matrix(self):
-        print("\nGenerating Gram Matrix with " + self.kernel + " kernel...")
         gram = np.zeros((self.num_train_samples, self.num_train_samples))
-        for i in range(0, self.num_train_samples):
+        for i in range(self.num_train_samples):
             for j in range(self.num_train_samples):
                 if self.kernel == 'linear':
                     gram[i][j] = kernels.linear_kernel(self.X_train[i], self.X_train[j])
@@ -99,5 +99,4 @@ class KernelizedDualPerceptron:
                     gram[i][j] = kernels.RBF_kernel(self.X_train[i], self.X_train[j])
                 else:
                     print("Invalid kernel")
-        print("Gram Matrix created")
         return gram
